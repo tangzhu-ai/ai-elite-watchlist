@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>塘主 AI 精英关注清单 | Platinum Collection</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --gold: #D4AF37;
+            --gold-light: #F4E4BC;
+            --gold-dark: #996515;
+            --platinum: #E5E4E2;
+            --dark: #1a1a2e;
+            --darker: #0f0f1a;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            background: linear-gradient(135deg, var(--darker) 0%, var(--dark) 50%, #16213e 100%);
+            min-height: 100vh;
+            color: #f8f8f8;
+            line-height: 1.6;
+        }
+        .container { max-width: 1200px; margin: 0 auto; padding: 40px 20px; }
+        
+        .header {
+            text-align: center;
+            padding: 60px 20px 80px;
+            position: relative;
+        }
+        .header::before, .header::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+        }
+        .header::before { top: 0; width: 200px; }
+        .header::after { bottom: 40px; width: 300px; }
+        
+        .crown { font-size: 48px; margin-bottom: 20px; filter: drop-shadow(0 0 20px rgba(212,175,55,0.5)); }
+        .title {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--gold-light), var(--gold), var(--gold-dark));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+        .subtitle {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.2rem;
+            color: var(--platinum);
+            letter-spacing: 0.5px;
+        }
+        .meta-info {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+            margin-top: 30px;
+        }
+        .meta-item { text-align: center; }
+        .meta-number {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: var(--gold);
+        }
+        .meta-label {
+            font-size: 0.8rem;
+            color: #a0a0a0;
+            letter-spacing: 1px;
+        }
+        
+        .category-section { margin-bottom: 50px; }
+        .category-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 25px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid rgba(212,175,55,0.3);
+        }
+        .category-icon { font-size: 1.8rem; margin-right: 12px; }
+        .category-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--gold-light);
+            letter-spacing: 1px;
+        }
+        .category-count {
+            margin-left: auto;
+            background: linear-gradient(135deg, var(--gold-dark), var(--gold));
+            color: var(--darker);
+            padding: 4px 12px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        
+        .accounts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 15px;
+        }
+        .account-card {
+            background: linear-gradient(145deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02));
+            border: 1px solid rgba(212,175,55,0.2);
+            border-radius: 10px;
+            padding: 16px;
+            transition: all 0.3s ease;
+        }
+        .account-card:hover {
+            transform: translateY(-3px);
+            border-color: rgba(212,175,55,0.5);
+            box-shadow: 0 8px 30px rgba(212,175,55,0.15);
+        }
+        .account-card.featured {
+            border-color: var(--gold);
+            background: linear-gradient(145deg, rgba(212,175,55,0.1), rgba(212,175,55,0.02));
+        }
+        .account-handle {
+            font-family: 'Inter', monospace;
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--gold);
+            margin-bottom: 3px;
+        }
+        .account-name {
+            font-size: 0.9rem;
+            color: #f8f8f8;
+            margin-bottom: 8px;
+        }
+        .account-org {
+            display: inline-block;
+            font-size: 0.7rem;
+            color: var(--darker);
+            background: linear-gradient(135deg, var(--platinum), #ccc);
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-weight: 500;
+        }
+        
+        .divider {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 40px 0;
+        }
+        .divider-line {
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(212,175,55,0.3), transparent);
+        }
+        .divider-icon {
+            color: var(--gold);
+            font-size: 1.2rem;
+            margin: 0 15px;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 50px 20px;
+            border-top: 1px solid rgba(212,175,55,0.2);
+            margin-top: 30px;
+        }
+        .footer-logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            color: var(--gold);
+            letter-spacing: 3px;
+            margin-bottom: 10px;
+        }
+        .footer-text { color: #a0a0a0; font-size: 0.85rem; margin-bottom: 15px; }
+        .footer-tip {
+            background: rgba(212,175,55,0.1);
+            border: 1px solid rgba(212,175,55,0.3);
+            border-radius: 8px;
+            padding: 15px 20px;
+            display: inline-block;
+            color: var(--gold-light);
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 768px) {
+            .title { font-size: 1.8rem; letter-spacing: 2px; }
+            .subtitle { font-size: 0.9rem; letter-spacing: 3px; }
+            .accounts-grid { grid-template-columns: 1fr; }
+        }
+        @media print {
+            body { background: white; color: #1a1a1a; }
+            .account-card { break-inside: avoid; border: 1px solid #ddd; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="crown">👑</div>
+            <h1 class="title">AI Elite Watchlist</h1>
+            <p class="subtitle">塘主精选 · X（原 Twitter）AI 关注清单</p>
+            <div class="meta-info">
+                <div class="meta-item">
+                    <div class="meta-number">219</div>
+                    <div class="meta-label">精选账号</div>
+                </div>
+                <div class="meta-item">
+                    <div class="meta-number">47</div>
+                    <div class="meta-label">OpenAI</div>
+                </div>
+                <div class="meta-item">
+                    <div class="meta-number">19</div>
+                    <div class="meta-label">DeepMind</div>
+                </div>
+                <div class="meta-item">
+                    <div class="meta-number">7</div>
+                    <div class="meta-label">Anthropic</div>
+                </div>
+            </div>
+        </header>
+        
+        
+        <section class="category-section">
+            <div class="category-header">
+                <span class="category-icon">🏛️</span>
+                <h2 class="category-title">AI 领袖与创始人</h2>
+                <span class="category-count">14 位</span>
+            </div>
+            <div class="accounts-grid">
+                
+                <div class="account-card featured">
+                    <div class="account-handle">@sama</div>
+                    <div class="account-name">Sam Altman</div>
+                    <div class="account-org">OpenAI CEO</div>
+                </div>
+                <div class="account-card featured">
+                    <div class="account-handle">@gdb</div>
+                    <div class="account-name">Greg Brockman</div>
+                    <div class="account-org">OpenAI 联合创始人</div>
+                </div>
+                <div class="account-card featured">
+                    <div class="account-handle">@DarioAmodei</div>
+                    <div class="account-name">Dario Amodei</div>
+                    <div class="account-org">Anthropic CEO</div>
+                </div>
+                <div class="account-card ">
+                    <div class="account-handle">@demishassabis</div>
+                    <div class="account-name">Demis Hassabis</div>
+                    <div class="account-org">DeepMind CEO · Nobel</div>
+                </div>
+                <div class="account-card ">
+                    <div class="account-handle">@mustafasuleyman</div>
+                    <div class="account-name">Mustafa Suleyman</div>
+                    <div class="account-org">Microsoft AI CEO</div>
+                </div>
+                <div class="account-card ">
+                    <div class="account-handle">@karpathy</div>
+                    <div class="account-name">Andrej Karpathy</div>
+                    <div class="account-org">Eureka Labs · Ex-OpenAI</div>
+                </div>
+                <div class="account-card ">
+                    <div class="account-handle">@miramurati</div>
+                    <div class="account-name">Mira Murati</div>
+                    <div class="account-org">Ex-OpenAI CTO</div>
+                </div>
+                <div class="account-card ">
+                    <div class="account-handle">@DavidSHolz</div>
+                    <div class="account-name">David Holz</div>
+                    <div class="account-org">Midjourney 创始人</div>
+                </div>
+                <div class="account-card ">
+                    <div class="account-handle">@AravSrinivas</div>
+                    <div class="account-name">Aravind Srinivas</div>
+                    <div class="account-org">Perplexity CEO</div>
+                </div>
+                <div class="account-card ">
+                    <div class="account-handle">@c_valenzuelab</div>
+                    <div class="account-name">Cristóbal Valenzuela</div>
+                    <div class="account-org">Runway 创始人</div>
+                </div>
+                <div class="account-card ">
+                    <div class="account-handle">@EMostaque</div>
+                    <div class="account-name">Emad Mostaque</div>
+                    <div class="account-org">Stability AI 创始人</div>
+                </div>
+                <div class="account-card ">
+                    <div class="account-handle">@drfeifei</div>
+                    <div class="account-name">Fei-Fei Li 李飞飞</div>
+                    <div class="account-org">World Labs · Stanford</div>
+                </div>
+                <div class="account-card ">
+                    <div class="account-handle">@peakji</div>
+                    <div class="account-name">Peak Ji</div>
+                    <div class="account-org">Manus AI 创始人</div>
+                </div>
+                <div class="account-card ">
+                    <div class="account-handle">@alexandr_wang</div>
+                    <div class="account-name">Alexandr Wang</div>
+                    <div class="account-org">Scale AI · Meta</div>
+                </div>
+            </div>
+        </section>
+        
+        <div class="divider">
+            <div class="divider-line"></div>
+            <span class="divider-icon">◆</span>
+            <div class="divider-line"></div>
+        </div>
+        <section class="category-section">
+            <div class="category-header">
+                <span class="category-icon">🔬</span>
+                <h2 class="category-title">图灵奖 & 顶级科学家</h2>
+                <span class="category-count">7 位</span>
+            </div>
+            <div class="accounts-grid">
+                
+                <div class="account-card featured">
+                    <div class="account-handle">@ylecun</div>
+                    <div class="account-name">Yann LeCun</div>
+                    <div class="account-org">图灵奖 · Meta首席AI科学家</div>
+                </div>
+                <div class="account-card featured">
+                    <div class="account-handle">@geoffreyhinton</div>
+                    <div class="account-name">Geoffrey Hinton</div>
+                    <div class="account-org">图灵奖 · 深度学习之父</div>
+                </div>
+                <div class="account-card featured">
+                    <div class="account-handle">@AndrewYNg</div>
+                    <div class="account-name">Andrew Ng 吴恩达</div>
+                    <div class="account-org">Coursera · Stanford</div>
+                </div>
+                <div class="account-card ">
+                    <div class="account-handle">@SchmidhuberAI</div>
+                    <div class="account-name">Jürgen Schmidhuber</div>
+                    <div class="account-org">LSTM 发明者</div>
+                </div>
+                <div class="account-card ">
+                    <div class="account-handle">@goodfellow_ian</div>
+                    <div class="account-name">Ian Goodfellow</div>
+                    <div class="account-org">GAN 发明者 · DeepMind</div>
+                </div>
+                <div class="account-card ">
+                    <div class="account-handle">@pmddomingos</div>
+                    <div class="account-name">Pedro Domingos</div>
+                    <div class="account-org">《主算法》作者</div>
+                </div>
+                <div class="account-card ">
+                    <div class="account-handle">@rasbt</div>
+                    <div class="account-name">Sebastian Raschka</div>
+                    <div class="account-org">ML/AI 研究工程师</div>
+                </div>
+            </div>
+        </section>
+        
+        <div class="divider">
+            <div class="divider-line"></div>
+            <span class="divider-icon">◆</span>
+            <div class="divider-line"></div>
+        </div>
+        <section class="category-section">
+            <div class="category-header">
+                <span class="category-icon">🏢</span>
+                <h2 class="category-title">OpenAI 核心团队</h2>
+                <span class="category-count">15 位</span>
+            </div>
+            <div class="accounts-grid">
+                
+                <div class="account-card featured">
+                    <div class="account-handle">@OpenAI</div>
+                    <div class="account-name">OpenAI</div>
+                    <div class="account-org">官方账号</div>
+                </div>
+                <div class="account-card featured">
+                    <div class="account-handle">@ChatGPTapp</div>
+                    <div class="account-name">ChatGPT</div>
+                    <div class="account-org">官方账号</div>
+                </div>
+                <div class="account-card featured">
+                    <div class="account-handle">@markchen90</div>
+                    <div class="account-name">Mark Chen</div>
+                    <div class="account-org">首席研究官</div>
+                </div>
+                <div class="account-card ">
+                    <div class="account-handle">@fidjissimo</div>
+                    <div class="account-name">Fidji Simo</div>
+                    <div class="account-org">应用部CEO</div>
+                </div>
+                <div class="account-card ">
+                    <div class="account-handle">@bradlightcap</div>
+                    <div class="account-name">Brad Lightcap</div>
+                    <div class="account-org">COO</div>
+                </div>
+                <div class="account-card ">
+                    <div class="account-handle">@prafdhar</div>
+                    <div class="account-name">Prafulla Dhariwal</div>
+                    <div class="account-org">GPT-4o 联合创作者</div>
+                </div>
+                <div class="account-card ">
+                    <div class="account-handle">@polynoamial</div>
+                    <div class="account-name">Noam Brown</div>
+                    <div class="account-org">o1/o3 推理模型</div>
+                </div>
+                <div class="account-card ">
+                    <div class="account-handle">@billpeeb</div>
+                    <div class="account-name">Bill Peebles</div>
+                    <div class="account-org">Sora 负责人</div>
+                </div>
+                <div class="account-card ">
+                    <div class="account-handle">@romainhuet</div>
+                    <div class="account-name">Romain Huet</div>
+                    <div class="account-org">开发者体验负责人</div>
+                </div>
+                <div class="account-card ">
+                    <div class="account-handle">@MillionInt</div>
+                    <div class="account-name">Jerry Tworek</div>
+                    <div class="account-org">o1/o3 · GPT-4</div>
+                </div>
+                <div class="account-card ">
+                    <div class="account-handle">@npew</div>
+                    <div class="account-name">Peter Welinder</div>
+                    <div class="account-org">VP & GM</div>
+                </div>
+                <div class="account-card ">
+                    <div class="account-handle">@jachiam0</div>
+                    <div class="account-name">Joshua Achiam</div>
+                    <div class="account-org">对齐负责人</div>
+                </div>
+                <div class="account-card ">
+                    <div class="account-handle">@LiuZuxin</div>
+                    <div class="account-name">Zuxin Liu</div>
+                    <div class="account-org">Post-training</div>
+                </div>
+                <div class="account-card ">
+                    <div class="account-handle">@yihengxu_</div>
+                    <div class="account-name">Yiheng Xu</div>
+                    <div class="account-org">Agents Research</div>
+                </div>
+                <div class="account-card ">
+                    <div class="account-handle">@OpenAIDevs</div>
+                    <div class="account-name">OpenAI Developers</div>
+                    <div class="account-org">开发者官方</div>
+                </div>
+            </div>
+        </section>
+        
+        <div class="divider">
+            <div class="divider-line"></div>
+            <span class="divider-icon">◆</span>
+            <div class="divider-line"></div>
+        </div>
+        <section class="category-section">
+            <div class="category-header">
+                <span class="category-icon">🔷</span>
+                <h2 class="category-title">Google / DeepMind</h2>
+                <span class="category-count">9 位</span>
+            </div>
+            <div class="accounts-grid">
+                
+                <div class="account-card featured">
+                    <div class="account-handle">@GoogleDeepMind</div>
+                    <div class="account-name">Google DeepMind</div>
+                    <div class="account-org">官方账号</div>
+                </div>
+                <div class="account-card featured">
+                    <div class="account-handle">@GoogleAI</div>
+                    <div class="account-name">Google AI</div>
+                    <div class="account-org">官方账号</div>
+                </div>
+                <div class="account-card featured">
+                    <div class="account-handle">@GeminiApp</div>
+                    <div class="account-name">Gemini</div>
+                    <div class="account-org">官方账号</div>
+                </div>
+                <div class="account-card ">
+                    <div class="account-handle">@sundarpichai</div>
+                    <div class="account-name">Sundar Pichai</div>
+                    <div class="account-org">Google CEO</div>
+                </div>
+                <div class="account-card ">
+                    <div class="account-handle">@koraykv</div>
+                    <div class="account-name">Koray Kavukcuoglu</div>
+                    <div class="account-org">首席AI架构师</div>
+                </div>
+                <div class="account-card ">
+                    <div class="account-handle">@goodside</div>
+                    <div class="account-name">Riley Goodside</div>
+                    <div class="account-org">首席提示工程师</div>
+                </div>
+                <div class="account-card ">
+                    <div class="account-handle">@OfficialLoganK</div>
+                    <div class="account-name">Logan Kilpatrick</div>
+                    <div class="account-org">AI Studio 产品负责人</div>
+                </div>
+                <div class="account-card ">
+                    <div class="account-handle">@joshwoodward</div>
+                    <div class="account-name">Josh Woodward</div>
+                    <div class="account-org">VP · Gemini</div>
+                </div>
+                <div class="account-card ">
+                    <div class="account-handle">@googleaidevs</div>
+                    <div class="account-name">Google AI Developers</div>
+                    <div class="account-org">开发者官方</div>
+                </div>
+            </div>
+        </section>
+        
+        <div class="divider">
+            <div class="divider-line"></div>
+            <span class="divider-icon">◆</span>
+            <div class="divider-line"></div>
+        </div>
+        <section class="category-section">
+            <div class="category-header">
+                <span class="category-icon">🟠</span>
+                <h2 class="category-title">Anthropic (Claude)</h2>
+                <span class="category-count">6 位</span>
+            </div>
+            <div class="accounts-grid">
+                
+                <div class="account-card featured">
+                    <div class="account-handle">@AnthropicAI</div>
+                    <div class="account-name">Anthropic</div>
+                    <div class="account-org">官方账号</div>
+                </div>
+                <div class="account-card featured">
+                    <div class="account-handle">@claudeai</div>
+                    <div class="account-name">Claude</div>
+                    <div class="account-org">官方账号</div>
+                </div>
+                <div class="account-card featured">
+                    <div class="account-handle">@alexalbert__</div>
+                    <div class="account-name">Alex Albert</div>
+                    <div class="account-org">Claude Relations</div>
+                </div>
+                <div class="account-card ">
+                    <div class="account-handle">@janleike</div>
+                    <div class="account-name">Jan Leike</div>
+                    <div class="account-org">对齐团队负责人</div>
+                </div>
+                <div class="account-card ">
+                    <div class="account-handle">@jaschasd</div>
+                    <div class="account-name">Jascha Sohl-Dickstein</div>
+                    <div class="account-org">Diffusion 发明者</div>
+                </div>
+                <div class="account-card ">
+                    <div class="account-handle">@ch402</div>
+                    <div class="account-name">Chris Olah</div>
+                    <div class="account-org">神经网络可解释性</div>
+                </div>
+            </div>
+        </section>
+        
+        <div class="divider">
+            <div class="divider-line"></div>
+            <span class="divider-icon">◆</span>
+            <div class="divider-line"></div>
+        </div>
+        <section class="category-section">
+            <div class="category-header">
+                <span class="category-icon">🇨🇳</span>
+                <h2 class="category-title">中国 AI 力量</h2>
+                <span class="category-count">10 位</span>
+            </div>
+            <div class="accounts-grid">
+                
+                <div class="account-card featured">
+                    <div class="account-handle">@deepseek_ai</div>
+                    <div class="account-name">DeepSeek</div>
+                    <div class="account-org">官方账号</div>
+                </div>
+                <div class="account-card featured">
+                    <div class="account-handle">@Alibaba_Qwen</div>
+                    <div class="account-name">Qwen 通义千问</div>
+                    <div class="account-org">阿里巴巴</div>
+                </div>
+                <div class="account-card featured">
+                    <div class="account-handle">@01AI_Yi</div>
+                    <div class="account-name">Yi 零一万物</div>
+                    <div class="account-org">李开复创办</div>
+                </div>
+                <div class="account-card ">
+                    <div class="account-handle">@TencentHunyuan</div>
+                    <div class="account-name">腾讯混元</div>
+                    <div class="account-org">腾讯</div>
+                </div>
+                <div class="account-card ">
+                    <div class="account-handle">@Baidu_Inc</div>
+                    <div class="account-name">百度</div>
+                    <div class="account-org">文心一言</div>
+                </div>
+                <div class="account-card ">
+                    <div class="account-handle">@Kling_ai</div>
+                    <div class="account-name">Kling AI 可灵</div>
+                    <div class="account-org">快手</div>
+                </div>
+                <div class="account-card ">
+                    <div class="account-handle">@Trae_ai</div>
+                    <div class="account-name">TRAE</div>
+                    <div class="account-org">字节跳动</div>
+                </div>
+                <div class="account-card ">
+                    <div class="account-handle">@ManusAI</div>
+                    <div class="account-name">Manus</div>
+                    <div class="account-org">AI Agent</div>
+                </div>
+                <div class="account-card ">
+                    <div class="account-handle">@JustinLin610</div>
+                    <div class="account-name">Junyang Lin</div>
+                    <div class="account-org">Qwen核心</div>
+                </div>
+                <div class="account-card ">
+                    <div class="account-handle">@victor207755822</div>
+                    <div class="account-name">Deli Chen</div>
+                    <div class="account-org">DeepSeek</div>
+                </div>
+            </div>
+        </section>
+        
+        <div class="divider">
+            <div class="divider-line"></div>
+            <span class="divider-icon">◆</span>
+            <div class="divider-line"></div>
+        </div>
+        <section class="category-section">
+            <div class="category-header">
+                <span class="category-icon">🛠️</span>
+                <h2 class="category-title">AI 产品 & 开发工具</h2>
+                <span class="category-count">12 位</span>
+            </div>
+            <div class="accounts-grid">
+                
+                <div class="account-card featured">
+                    <div class="account-handle">@cursor_ai</div>
+                    <div class="account-name">Cursor</div>
+                    <div class="account-org">AI编程IDE</div>
+                </div>
+                <div class="account-card featured">
+                    <div class="account-handle">@windsurf</div>
+                    <div class="account-name">Windsurf</div>
+                    <div class="account-org">AI编程IDE</div>
+                </div>
+                <div class="account-card featured">
+                    <div class="account-handle">@boltdotnew</div>
+                    <div class="account-name">bolt.new</div>
+                    <div class="account-org">AI应用构建</div>
+                </div>
+                <div class="account-card ">
+                    <div class="account-handle">@midjourney</div>
+                    <div class="account-name">Midjourney</div>
+                    <div class="account-org">AI绘画</div>
+                </div>
+                <div class="account-card ">
+                    <div class="account-handle">@StabilityAI</div>
+                    <div class="account-name">Stability AI</div>
+                    <div class="account-org">Stable Diffusion</div>
+                </div>
+                <div class="account-card ">
+                    <div class="account-handle">@LumaLabsAI</div>
+                    <div class="account-name">Luma AI</div>
+                    <div class="account-org">Dream Machine</div>
+                </div>
+                <div class="account-card ">
+                    <div class="account-handle">@perplexity_ai</div>
+                    <div class="account-name">Perplexity</div>
+                    <div class="account-org">AI搜索</div>
+                </div>
+                <div class="account-card ">
+                    <div class="account-handle">@NotionHQ</div>
+                    <div class="account-name">Notion</div>
+                    <div class="account-org">AI笔记</div>
+                </div>
+                <div class="account-card ">
+                    <div class="account-handle">@huggingface</div>
+                    <div class="account-name">Hugging Face</div>
+                    <div class="account-org">AI社区</div>
+                </div>
+                <div class="account-card ">
+                    <div class="account-handle">@Gradio</div>
+                    <div class="account-name">Gradio</div>
+                    <div class="account-org">ML演示</div>
+                </div>
+                <div class="account-card ">
+                    <div class="account-handle">@n8n_io</div>
+                    <div class="account-name">n8n</div>
+                    <div class="account-org">AI工作流</div>
+                </div>
+                <div class="account-card ">
+                    <div class="account-handle">@Magnific_AI</div>
+                    <div class="account-name">Magnific</div>
+                    <div class="account-org">AI放大器</div>
+                </div>
+            </div>
+        </section>
+        
+        <div class="divider">
+            <div class="divider-line"></div>
+            <span class="divider-icon">◆</span>
+            <div class="divider-line"></div>
+        </div>
+        <section class="category-section">
+            <div class="category-header">
+                <span class="category-icon">📢</span>
+                <h2 class="category-title">AI 内容创作者 & KOL</h2>
+                <span class="category-count">9 位</span>
+            </div>
+            <div class="accounts-grid">
+                
+                <div class="account-card featured">
+                    <div class="account-handle">@op7418</div>
+                    <div class="account-name">歸藏</div>
+                    <div class="account-org">AIGC周刊</div>
+                </div>
+                <div class="account-card featured">
+                    <div class="account-handle">@imxiaohu</div>
+                    <div class="account-name">小互</div>
+                    <div class="account-org">AI日报</div>
+                </div>
+                <div class="account-card featured">
+                    <div class="account-handle">@Lessnoise365</div>
+                    <div class="account-name">被减数</div>
+                    <div class="account-org">AIGC博士</div>
+                </div>
+                <div class="account-card ">
+                    <div class="account-handle">@LinusEkenstam</div>
+                    <div class="account-name">Linus Ekenstam</div>
+                    <div class="account-org">AI Evangelist</div>
+                </div>
+                <div class="account-card ">
+                    <div class="account-handle">@nickfloats</div>
+                    <div class="account-name">Nick St. Pierre</div>
+                    <div class="account-org">Midjourney教程</div>
+                </div>
+                <div class="account-card ">
+                    <div class="account-handle">@minchoi</div>
+                    <div class="account-name">Min Choi</div>
+                    <div class="account-org">AI Educator</div>
+                </div>
+                <div class="account-card ">
+                    <div class="account-handle">@HeyAbhishek</div>
+                    <div class="account-name">Abhishek</div>
+                    <div class="account-org">AI Tools</div>
+                </div>
+                <div class="account-card ">
+                    <div class="account-handle">@_akhaliq</div>
+                    <div class="account-name">AK</div>
+                    <div class="account-org">AI论文分享</div>
+                </div>
+                <div class="account-card ">
+                    <div class="account-handle">@DeepLearningAI</div>
+                    <div class="account-name">DeepLearning.AI</div>
+                    <div class="account-org">吴恩达AI教育</div>
+                </div>
+            </div>
+        </section>
+        
+        <div class="divider">
+            <div class="divider-line"></div>
+            <span class="divider-icon">◆</span>
+            <div class="divider-line"></div>
+        </div>
+        <section class="category-section">
+            <div class="category-header">
+                <span class="category-icon">💼</span>
+                <h2 class="category-title">科技巨头 CEO</h2>
+                <span class="category-count">5 位</span>
+            </div>
+            <div class="accounts-grid">
+                
+                <div class="account-card featured">
+                    <div class="account-handle">@satyanadella</div>
+                    <div class="account-name">Satya Nadella</div>
+                    <div class="account-org">Microsoft CEO</div>
+                </div>
+                <div class="account-card featured">
+                    <div class="account-handle">@LisaSu</div>
+                    <div class="account-name">Lisa Su</div>
+                    <div class="account-org">AMD CEO</div>
+                </div>
+                <div class="account-card featured">
+                    <div class="account-handle">@elonmusk</div>
+                    <div class="account-name">Elon Musk</div>
+                    <div class="account-org">xAI · Tesla</div>
+                </div>
+                <div class="account-card ">
+                    <div class="account-handle">@BillGates</div>
+                    <div class="account-name">Bill Gates</div>
+                    <div class="account-org">Gates Foundation</div>
+                </div>
+                <div class="account-card ">
+                    <div class="account-handle">@JeffBezos</div>
+                    <div class="account-name">Jeff Bezos</div>
+                    <div class="account-org">Amazon · Blue Origin</div>
+                </div>
+            </div>
+        </section>
+        
+        
+        <footer class="footer">
+            <div class="footer-logo">✦ TANGZHU AI COLLECTION ✦</div>
+            <p class="footer-text">精选全球顶级AI从业者、研究者、创作者</p>
+            <div class="footer-tip">
+                💡 使用方法：复制账号（如 @sama）到 X 搜索并关注
+            </div>
+            <p style="margin-top:20px;color:#666;font-size:0.8rem;">更新日期：2025年12月</p>
+        </footer>
+    </div>
+</body>
+</html>
