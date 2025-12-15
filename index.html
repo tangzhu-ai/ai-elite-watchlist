@@ -3,812 +3,970 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>塘主 AI 精英关注清单 | Platinum Collection</title>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <title>AI 好书私藏 10 本 | 塘主书单</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&family=Noto+Serif+SC:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --gold: #D4AF37;
-            --gold-light: #F4E4BC;
-            --gold-dark: #996515;
+            --gold: #C8A96A;
+            --gold-light: #F2E6C9;
+            --gold-dark: #8B6B2E;
             --platinum: #E5E4E2;
             --dark: #1a1a2e;
             --darker: #0f0f1a;
+            --card-bg: rgba(255,255,255,0.03);
+            --card-border: rgba(255,255,255,0.10);
+            --text-light: #f8f8f8;
+            --text-muted: rgba(248,248,248,0.62);
         }
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: 'Inter', -apple-system, sans-serif;
-            background: linear-gradient(135deg, var(--darker) 0%, var(--dark) 50%, #16213e 100%);
-            min-height: 100vh;
-            color: #f8f8f8;
-            line-height: 1.6;
-        }
-        .container { max-width: 1200px; margin: 0 auto; padding: 40px 20px; }
         
-        .header {
-            text-align: center;
-            padding: 60px 20px 80px;
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Inter', 'Noto Serif SC', -apple-system, sans-serif;
+            background: linear-gradient(135deg, var(--darker) 0%, var(--dark) 40%, #16213e 100%);
+            min-height: 100vh;
+            color: var(--text-light);
+            line-height: 1.6;
             position: relative;
         }
-        .header::before, .header::after {
+        
+        /* 书页纹理 + 柔和聚光 - 书籍页面特有质感 */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(ellipse 70% 40% at 50% 5%, rgba(200,169,106,0.04) 0%, transparent 45%),
+                repeating-linear-gradient(0deg, transparent, transparent 100px, rgba(255,255,255,0.008) 100px, rgba(255,255,255,0.008) 101px);
+            pointer-events: none;
+            z-index: 0;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        /* ========== HERO ========== */
+        .hero {
+            text-align: center;
+            padding: 60px 20px 50px;
+            position: relative;
+        }
+        
+        .hero::before, .hero::after {
             content: '';
             position: absolute;
             left: 50%;
             transform: translateX(-50%);
-            height: 2px;
+            height: 1px;
             background: linear-gradient(90deg, transparent, var(--gold), transparent);
         }
-        .header::before { top: 0; width: 200px; }
-        .header::after { bottom: 40px; width: 300px; }
+        .hero::before { top: 0; width: 150px; }
+        .hero::after { bottom: 20px; width: 250px; }
         
-        .crown { font-size: 48px; margin-bottom: 20px; filter: drop-shadow(0 0 20px rgba(212,175,55,0.5)); }
-        .title {
-            font-family: 'Playfair Display', serif;
-            font-size: 3rem;
+        .hero-icon {
+            font-size: 52px;
+            margin-bottom: 20px;
+            filter: drop-shadow(0 0 25px rgba(212,175,55,0.4));
+        }
+        
+        .hero-title {
+            font-family: 'Playfair Display', 'Noto Serif SC', serif;
+            font-size: 2.8rem;
             font-weight: 700;
             background: linear-gradient(135deg, var(--gold-light), var(--gold), var(--gold-dark));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            letter-spacing: 4px;
-            text-transform: uppercase;
-            margin-bottom: 10px;
-        }
-        .subtitle {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.2rem;
-            color: var(--platinum);
-            letter-spacing: 0.5px;
-        }
-        .meta-info {
-            display: flex;
-            justify-content: center;
-            gap: 40px;
-            flex-wrap: wrap;
-            margin-top: 30px;
-        }
-        .meta-item { text-align: center; }
-        .meta-number {
-            font-family: 'Playfair Display', serif;
-            font-size: 2.2rem;
-            font-weight: 700;
-            color: var(--gold);
-        }
-        .meta-label {
-            font-size: 0.8rem;
-            color: #a0a0a0;
-            letter-spacing: 1px;
-        }
-        
-        .category-section { margin-bottom: 50px; }
-        .category-header {
-            display: flex;
-            align-items: center;
-            margin-bottom: 25px;
-            padding-bottom: 12px;
-            border-bottom: 1px solid rgba(212,175,55,0.3);
-        }
-        .category-icon { font-size: 1.8rem; margin-right: 12px; }
-        .category-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.5rem;
-            font-weight: 600;
-            color: var(--gold-light);
-            letter-spacing: 1px;
-        }
-        .category-count {
-            margin-left: auto;
-            background: linear-gradient(135deg, var(--gold-dark), var(--gold));
-            color: var(--darker);
-            padding: 4px 12px;
-            border-radius: 15px;
-            font-size: 0.8rem;
-            font-weight: 600;
-        }
-        
-        .accounts-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-            gap: 15px;
-        }
-        .account-card {
-            background: linear-gradient(145deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02));
-            border: 1px solid rgba(212,175,55,0.2);
-            border-radius: 10px;
-            padding: 16px;
-            transition: all 0.3s ease;
-        }
-        .account-card:hover {
-            transform: translateY(-3px);
-            border-color: rgba(212,175,55,0.5);
-            box-shadow: 0 8px 30px rgba(212,175,55,0.15);
-        }
-        .account-card.featured {
-            border-color: var(--gold);
-            background: linear-gradient(145deg, rgba(212,175,55,0.1), rgba(212,175,55,0.02));
-        }
-        .account-handle {
-            font-family: 'Inter', monospace;
-            font-size: 1rem;
-            font-weight: 600;
-            color: var(--gold);
-            margin-bottom: 3px;
-        }
-        .account-name {
-            font-size: 0.9rem;
-            color: #f8f8f8;
-            margin-bottom: 8px;
-        }
-        .account-org {
-            display: inline-block;
-            font-size: 0.7rem;
-            color: var(--darker);
-            background: linear-gradient(135deg, var(--platinum), #ccc);
-            padding: 2px 8px;
-            border-radius: 10px;
-            font-weight: 500;
-        }
-        
-        .divider {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 40px 0;
-        }
-        .divider-line {
-            flex: 1;
-            height: 1px;
-            background: linear-gradient(90deg, transparent, rgba(212,175,55,0.3), transparent);
-        }
-        .divider-icon {
-            color: var(--gold);
-            font-size: 1.2rem;
-            margin: 0 15px;
-        }
-        
-        .footer {
-            text-align: center;
-            padding: 50px 20px;
-            border-top: 1px solid rgba(212,175,55,0.2);
-            margin-top: 30px;
-        }
-        .footer-logo {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.3rem;
-            color: var(--gold);
+            background-clip: text;
             letter-spacing: 3px;
             margin-bottom: 10px;
         }
-        .footer-text { color: #a0a0a0; font-size: 0.85rem; margin-bottom: 15px; }
-        .footer-tip {
-            background: rgba(212,175,55,0.1);
-            border: 1px solid rgba(212,175,55,0.3);
-            border-radius: 8px;
-            padding: 15px 20px;
-            display: inline-block;
-            color: var(--gold-light);
-            font-size: 0.9rem;
+        
+        .hero-subtitle {
+            font-size: 1.1rem;
+            color: var(--platinum);
+            letter-spacing: 0.5px;
+            margin-bottom: 35px;
         }
         
-        @media (max-width: 768px) {
-            .title { font-size: 1.8rem; letter-spacing: 2px; }
-            .subtitle { font-size: 0.9rem; letter-spacing: 3px; }
-            .accounts-grid { grid-template-columns: 1fr; }
+        /* 统计数据 */
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 50px;
+            flex-wrap: wrap;
+            margin-bottom: 40px;
         }
-        @media print {
-            body { background: white; color: #1a1a1a; }
-            .account-card { break-inside: avoid; border: 1px solid #ddd; }
+        
+        .stat-item { text-align: center; }
+        
+        .stat-number {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.4rem;
+            font-weight: 700;
+            color: var(--gold);
         }
+        
+        .stat-label {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            letter-spacing: 1px;
+        }
+        
+        /* ========== 搜索 & 筛选 ========== */
+        .controls {
+            max-width: 700px;
+            margin: 0 auto 50px;
+        }
+        
+        .search-box {
+            position: relative;
+            margin-bottom: 20px;
+        }
+        
+        .search-input {
+            width: 100%;
+            padding: 14px 20px 14px 50px;
+            font-size: 1rem;
+            color: var(--text-light);
+            background: rgba(255,255,255,0.05);
+            border: 1px solid var(--card-border);
+            border-radius: 12px;
+            outline: none;
+            transition: all 0.3s ease;
+            font-family: inherit;
+        }
+        
+        .search-input::placeholder { color: var(--text-muted); }
+        
+        .search-input:focus {
+            border-color: var(--gold);
+            box-shadow: 0 0 20px rgba(212,175,55,0.15);
+        }
+        
+        .search-icon {
+            position: absolute;
+            left: 18px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.1rem;
+            opacity: 0.6;
+        }
+        
+        /* 筛选标签 */
+        .filter-chips {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        
+        .chip {
+            padding: 6px 14px;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            background: transparent;
+            border: 1px solid rgba(255,255,255,0.15);
+            border-radius: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: inherit;
+        }
+        
+        .chip:hover {
+            border-color: rgba(200,169,106,0.6);
+            color: var(--gold-light);
+            box-shadow: 0 0 12px rgba(200,169,106,0.15);
+        }
+        
+        .chip.active {
+            background: rgba(200,169,106,0.15);
+            border-color: var(--gold);
+            color: var(--gold-light);
+            font-weight: 500;
+        }
+        
+        /* ========== 书籍网格 ========== */
+        .books-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+        }
+        
+        .book-card {
+            background: linear-gradient(145deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
+            border: 1px solid var(--card-border);
+            border-radius: 16px;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            cursor: pointer;
+            position: relative;
+            backdrop-filter: blur(10px);
+        }
+        
+        .book-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--gold-dark), var(--gold), var(--gold-dark));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .book-card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(212,175,55,0.5);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.4), 0 0 30px rgba(212,175,55,0.1);
+        }
+        
+        .book-card:hover::before { opacity: 1; }
+        
+        /* 封面 */
+        .book-cover-wrapper {
+            position: relative;
+            padding: 20px 20px 0;
+            display: flex;
+            justify-content: center;
+        }
+        
+        .book-cover {
+            width: 140px;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 4px;
+            box-shadow: 
+                0 10px 30px rgba(0,0,0,0.5),
+                0 0 0 1px rgba(212,175,55,0.2),
+                -5px 0 15px rgba(0,0,0,0.3);
+            transition: transform 0.3s ease;
+        }
+        
+        .book-card:hover .book-cover {
+            transform: scale(1.03);
+        }
+        
+        /* 书脊装饰 */
+        .book-cover::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: linear-gradient(180deg, var(--gold-light), var(--gold-dark));
+            border-radius: 2px 0 0 2px;
+        }
+        
+        /* 书籍信息 */
+        .book-info {
+            padding: 20px;
+        }
+        
+        .book-title-cn {
+            font-family: 'Noto Serif SC', serif;
+            font-size: 1.05rem;
+            font-weight: 600;
+            color: var(--text-light);
+            margin-bottom: 4px;
+            line-height: 1.4;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        
+        .book-title-en {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            font-style: italic;
+            margin-bottom: 10px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        
+        .book-author {
+            font-size: 0.85rem;
+            color: var(--gold-light);
+            margin-bottom: 8px;
+        }
+        
+        .book-meta {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin-bottom: 12px;
+        }
+        
+        .book-tags {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+            margin-bottom: 15px;
+        }
+        
+        .book-tag {
+            font-size: 0.7rem;
+            padding: 3px 8px;
+            background: rgba(255,255,255,0.06);
+            color: rgba(248,248,248,0.70);
+            border-radius: 10px;
+            border: 1px solid rgba(255,255,255,0.12);
+            transition: border-color 0.3s ease;
+        }
+        
+        .book-card:hover .book-tag {
+            border-color: rgba(200,169,106,0.55);
+        }
+        
+        /* ========== MODAL ========== */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.85);
+            backdrop-filter: blur(8px);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .modal-overlay.active { display: flex; }
+        
+        .modal {
+            background: linear-gradient(145deg, #1e1e3a, #151528);
+            border: 1px solid var(--card-border);
+            border-radius: 20px;
+            max-width: 600px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            box-shadow: 0 30px 80px rgba(0,0,0,0.6), 0 0 40px rgba(212,175,55,0.1);
+        }
+        
+        .modal-close {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 1.8rem;
+            color: var(--text-muted);
+            background: none;
+            border: none;
+            cursor: pointer;
+            transition: color 0.3s;
+            z-index: 10;
+        }
+        
+        .modal-close:hover { color: var(--gold); }
+        
+        .modal-header {
+            display: flex;
+            gap: 25px;
+            padding: 30px 30px 20px;
+            border-bottom: 1px solid rgba(212,175,55,0.15);
+        }
+        
+        .modal-cover {
+            width: 150px;
+            height: 215px;
+            object-fit: cover;
+            border-radius: 6px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.5);
+            flex-shrink: 0;
+        }
+        
+        .modal-title-section { flex: 1; }
+        
+        .modal-title-cn {
+            font-family: 'Noto Serif SC', serif;
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: var(--text-light);
+            margin-bottom: 5px;
+            line-height: 1.3;
+        }
+        
+        .modal-title-en {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            font-style: italic;
+            margin-bottom: 15px;
+        }
+        
+        .modal-author {
+            font-size: 1rem;
+            color: var(--gold-light);
+            margin-bottom: 5px;
+        }
+        
+        .modal-publisher {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 5px;
+        }
+        
+        .modal-isbn {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            font-family: 'Inter', monospace;
+        }
+        
+        .modal-isbn-hint {
+            font-size: 0.75rem;
+            color: rgba(248,248,248,0.45);
+            margin-top: 8px;
+            font-style: italic;
+        }
+        
+        .modal-body { padding: 25px 30px 30px; }
+        
+        .modal-section {
+            margin-bottom: 25px;
+        }
+        
+        .modal-section:last-child { margin-bottom: 0; }
+        
+        .modal-section-title {
+            font-size: 0.8rem;
+            color: var(--gold);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .modal-section-title::before {
+            content: '';
+            width: 20px;
+            height: 1px;
+            background: var(--gold);
+        }
+        
+        .modal-why {
+            font-size: 0.95rem;
+            color: var(--text-light);
+            line-height: 2;
+            padding: 20px 22px;
+            background: linear-gradient(135deg, rgba(212,175,55,0.08), rgba(212,175,55,0.03));
+            border-left: 3px solid var(--gold);
+            border-radius: 0 10px 10px 0;
+            white-space: pre-line;
+            letter-spacing: 0.3px;
+        }
+        
+        .modal-search-cmd {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            background: rgba(0,0,0,0.3);
+            padding: 15px;
+            border-radius: 8px;
+            font-family: 'Inter', monospace;
+            word-break: break-all;
+            margin-bottom: 12px;
+        }
+        
+        .modal-copy-btn {
+            width: 100%;
+            padding: 12px;
+            font-size: 0.9rem;
+            font-family: inherit;
+            font-weight: 500;
+            color: var(--darker);
+            background: linear-gradient(135deg, var(--gold-light), var(--gold));
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .modal-copy-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(212,175,55,0.3);
+        }
+        
+        .modal-copy-btn.copied {
+            background: #2ecc71;
+            color: white;
+        }
+        
+        /* ========== FOOTER ========== */
+        .footer {
+            text-align: center;
+            padding: 50px 20px;
+            border-top: 1px solid rgba(212,175,55,0.15);
+            margin-top: 60px;
+        }
+        
+        .footer-logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.2rem;
+            color: var(--gold);
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+        }
+        
+        .footer-text {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+        
+        /* ========== 空状态 ========== */
+        .empty-state {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--text-muted);
+        }
+        
+        .empty-state-icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            opacity: 0.5;
+        }
+        
+        /* ========== 响应式 ========== */
+        @media (max-width: 900px) {
+            .books-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 600px) {
+            .hero-title { font-size: 2rem; }
+            .hero-subtitle { font-size: 0.95rem; }
+            .stats { gap: 30px; }
+            .stat-number { font-size: 1.8rem; }
+            
+            .books-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .book-card {
+                display: flex;
+                flex-direction: row;
+            }
+            
+            .book-cover-wrapper {
+                padding: 15px;
+                flex-shrink: 0;
+            }
+            
+            .book-cover {
+                width: 100px;
+                height: 145px;
+            }
+            
+            .book-info {
+                padding: 15px 15px 15px 0;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+            }
+            
+            .modal-header {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+            
+            .modal-cover {
+                width: 130px;
+                height: 185px;
+            }
+        }
+        
+        /* 滚动条 */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: var(--darker); }
+        ::-webkit-scrollbar-thumb { 
+            background: rgba(212,175,55,0.3); 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover { background: var(--gold); }
     </style>
 </head>
 <body>
     <div class="container">
-        <header class="header">
-            <div class="crown">👑</div>
-            <h1 class="title">AI Elite Watchlist</h1>
-            <p class="subtitle">塘主精选 · X（原 Twitter）AI 关注清单</p>
-            <div class="meta-info">
-                <div class="meta-item">
-                    <div class="meta-number">219</div>
-                    <div class="meta-label">精选账号</div>
+        <!-- Hero -->
+        <header class="hero">
+            <div class="hero-icon">📚</div>
+            <h1 class="hero-title">AI 好书私藏</h1>
+            <p class="hero-subtitle">塘主精选 · 构建 AI 认知的 10 本必读书</p>
+            
+            <div class="stats">
+                <div class="stat-item">
+                    <div class="stat-number">10</div>
+                    <div class="stat-label">Books</div>
                 </div>
-                <div class="meta-item">
-                    <div class="meta-number">47</div>
-                    <div class="meta-label">OpenAI</div>
+                <div class="stat-item">
+                    <div class="stat-number">4</div>
+                    <div class="stat-label">Themes</div>
                 </div>
-                <div class="meta-item">
-                    <div class="meta-number">19</div>
-                    <div class="meta-label">DeepMind</div>
-                </div>
-                <div class="meta-item">
-                    <div class="meta-number">7</div>
-                    <div class="meta-label">Anthropic</div>
+                <div class="stat-item">
+                    <div class="stat-number" id="isbn-count">10</div>
+                    <div class="stat-label">可精确检索</div>
                 </div>
             </div>
         </header>
         
-        
-        <section class="category-section">
-            <div class="category-header">
-                <span class="category-icon">🏛️</span>
-                <h2 class="category-title">AI 领袖与创始人</h2>
-                <span class="category-count">14 位</span>
+        <!-- 搜索 & 筛选 -->
+        <div class="controls">
+            <div class="search-box">
+                <span class="search-icon">🔍</span>
+                <input type="text" class="search-input" id="searchInput" placeholder="搜索书名、作者、关键词...">
             </div>
-            <div class="accounts-grid">
-                
-                <div class="account-card featured">
-                    <div class="account-handle">@sama</div>
-                    <div class="account-name">Sam Altman</div>
-                    <div class="account-org">OpenAI CEO</div>
-                </div>
-                <div class="account-card featured">
-                    <div class="account-handle">@gdb</div>
-                    <div class="account-name">Greg Brockman</div>
-                    <div class="account-org">OpenAI 联合创始人</div>
-                </div>
-                <div class="account-card featured">
-                    <div class="account-handle">@DarioAmodei</div>
-                    <div class="account-name">Dario Amodei</div>
-                    <div class="account-org">Anthropic CEO</div>
-                </div>
-                <div class="account-card ">
-                    <div class="account-handle">@demishassabis</div>
-                    <div class="account-name">Demis Hassabis</div>
-                    <div class="account-org">DeepMind CEO · Nobel</div>
-                </div>
-                <div class="account-card ">
-                    <div class="account-handle">@mustafasuleyman</div>
-                    <div class="account-name">Mustafa Suleyman</div>
-                    <div class="account-org">Microsoft AI CEO</div>
-                </div>
-                <div class="account-card ">
-                    <div class="account-handle">@karpathy</div>
-                    <div class="account-name">Andrej Karpathy</div>
-                    <div class="account-org">Eureka Labs · Ex-OpenAI</div>
-                </div>
-                <div class="account-card ">
-                    <div class="account-handle">@miramurati</div>
-                    <div class="account-name">Mira Murati</div>
-                    <div class="account-org">Ex-OpenAI CTO</div>
-                </div>
-                <div class="account-card ">
-                    <div class="account-handle">@DavidSHolz</div>
-                    <div class="account-name">David Holz</div>
-                    <div class="account-org">Midjourney 创始人</div>
-                </div>
-                <div class="account-card ">
-                    <div class="account-handle">@AravSrinivas</div>
-                    <div class="account-name">Aravind Srinivas</div>
-                    <div class="account-org">Perplexity CEO</div>
-                </div>
-                <div class="account-card ">
-                    <div class="account-handle">@c_valenzuelab</div>
-                    <div class="account-name">Cristóbal Valenzuela</div>
-                    <div class="account-org">Runway 创始人</div>
-                </div>
-                <div class="account-card ">
-                    <div class="account-handle">@EMostaque</div>
-                    <div class="account-name">Emad Mostaque</div>
-                    <div class="account-org">Stability AI 创始人</div>
-                </div>
-                <div class="account-card ">
-                    <div class="account-handle">@drfeifei</div>
-                    <div class="account-name">Fei-Fei Li 李飞飞</div>
-                    <div class="account-org">World Labs · Stanford</div>
-                </div>
-                <div class="account-card ">
-                    <div class="account-handle">@peakji</div>
-                    <div class="account-name">Peak Ji</div>
-                    <div class="account-org">Manus AI 创始人</div>
-                </div>
-                <div class="account-card ">
-                    <div class="account-handle">@alexandr_wang</div>
-                    <div class="account-name">Alexandr Wang</div>
-                    <div class="account-org">Scale AI · Meta</div>
-                </div>
+            <div class="filter-chips" id="filterChips">
+                <button class="chip active" data-tag="all">全部</button>
+                <button class="chip" data-tag="Biography">Biography</button>
+                <button class="chip" data-tag="AI History">AI History</button>
+                <button class="chip" data-tag="Future">Future</button>
+                <button class="chip" data-tag="Startup&Product">Startup & Product</button>
             </div>
-        </section>
-        
-        <div class="divider">
-            <div class="divider-line"></div>
-            <span class="divider-icon">◆</span>
-            <div class="divider-line"></div>
         </div>
-        <section class="category-section">
-            <div class="category-header">
-                <span class="category-icon">🔬</span>
-                <h2 class="category-title">图灵奖 & 顶级科学家</h2>
-                <span class="category-count">7 位</span>
-            </div>
-            <div class="accounts-grid">
-                
-                <div class="account-card featured">
-                    <div class="account-handle">@ylecun</div>
-                    <div class="account-name">Yann LeCun</div>
-                    <div class="account-org">图灵奖 · Meta首席AI科学家</div>
-                </div>
-                <div class="account-card featured">
-                    <div class="account-handle">@geoffreyhinton</div>
-                    <div class="account-name">Geoffrey Hinton</div>
-                    <div class="account-org">图灵奖 · 深度学习之父</div>
-                </div>
-                <div class="account-card featured">
-                    <div class="account-handle">@AndrewYNg</div>
-                    <div class="account-name">Andrew Ng 吴恩达</div>
-                    <div class="account-org">Coursera · Stanford</div>
-                </div>
-                <div class="account-card ">
-                    <div class="account-handle">@SchmidhuberAI</div>
-                    <div class="account-name">Jürgen Schmidhuber</div>
-                    <div class="account-org">LSTM 发明者</div>
-                </div>
-                <div class="account-card ">
-                    <div class="account-handle">@goodfellow_ian</div>
-                    <div class="account-name">Ian Goodfellow</div>
-                    <div class="account-org">GAN 发明者 · DeepMind</div>
-                </div>
-                <div class="account-card ">
-                    <div class="account-handle">@pmddomingos</div>
-                    <div class="account-name">Pedro Domingos</div>
-                    <div class="account-org">《主算法》作者</div>
-                </div>
-                <div class="account-card ">
-                    <div class="account-handle">@rasbt</div>
-                    <div class="account-name">Sebastian Raschka</div>
-                    <div class="account-org">ML/AI 研究工程师</div>
-                </div>
-            </div>
-        </section>
         
-        <div class="divider">
-            <div class="divider-line"></div>
-            <span class="divider-icon">◆</span>
-            <div class="divider-line"></div>
-        </div>
-        <section class="category-section">
-            <div class="category-header">
-                <span class="category-icon">🏢</span>
-                <h2 class="category-title">OpenAI 核心团队</h2>
-                <span class="category-count">15 位</span>
-            </div>
-            <div class="accounts-grid">
-                
-                <div class="account-card featured">
-                    <div class="account-handle">@OpenAI</div>
-                    <div class="account-name">OpenAI</div>
-                    <div class="account-org">官方账号</div>
-                </div>
-                <div class="account-card featured">
-                    <div class="account-handle">@ChatGPTapp</div>
-                    <div class="account-name">ChatGPT</div>
-                    <div class="account-org">官方账号</div>
-                </div>
-                <div class="account-card featured">
-                    <div class="account-handle">@markchen90</div>
-                    <div class="account-name">Mark Chen</div>
-                    <div class="account-org">首席研究官</div>
-                </div>
-                <div class="account-card ">
-                    <div class="account-handle">@fidjissimo</div>
-                    <div class="account-name">Fidji Simo</div>
-                    <div class="account-org">应用部CEO</div>
-                </div>
-                <div class="account-card ">
-                    <div class="account-handle">@bradlightcap</div>
-                    <div class="account-name">Brad Lightcap</div>
-                    <div class="account-org">COO</div>
-                </div>
-                <div class="account-card ">
-                    <div class="account-handle">@prafdhar</div>
-                    <div class="account-name">Prafulla Dhariwal</div>
-                    <div class="account-org">GPT-4o 联合创作者</div>
-                </div>
-                <div class="account-card ">
-                    <div class="account-handle">@polynoamial</div>
-                    <div class="account-name">Noam Brown</div>
-                    <div class="account-org">o1/o3 推理模型</div>
-                </div>
-                <div class="account-card ">
-                    <div class="account-handle">@billpeeb</div>
-                    <div class="account-name">Bill Peebles</div>
-                    <div class="account-org">Sora 负责人</div>
-                </div>
-                <div class="account-card ">
-                    <div class="account-handle">@romainhuet</div>
-                    <div class="account-name">Romain Huet</div>
-                    <div class="account-org">开发者体验负责人</div>
-                </div>
-                <div class="account-card ">
-                    <div class="account-handle">@MillionInt</div>
-                    <div class="account-name">Jerry Tworek</div>
-                    <div class="account-org">o1/o3 · GPT-4</div>
-                </div>
-                <div class="account-card ">
-                    <div class="account-handle">@npew</div>
-                    <div class="account-name">Peter Welinder</div>
-                    <div class="account-org">VP & GM</div>
-                </div>
-                <div class="account-card ">
-                    <div class="account-handle">@jachiam0</div>
-                    <div class="account-name">Joshua Achiam</div>
-                    <div class="account-org">对齐负责人</div>
-                </div>
-                <div class="account-card ">
-                    <div class="account-handle">@LiuZuxin</div>
-                    <div class="account-name">Zuxin Liu</div>
-                    <div class="account-org">Post-training</div>
-                </div>
-                <div class="account-card ">
-                    <div class="account-handle">@yihengxu_</div>
-                    <div class="account-name">Yiheng Xu</div>
-                    <div class="account-org">Agents Research</div>
-                </div>
-                <div class="account-card ">
-                    <div class="account-handle">@OpenAIDevs</div>
-                    <div class="account-name">OpenAI Developers</div>
-                    <div class="account-org">开发者官方</div>
-                </div>
-            </div>
-        </section>
+        <!-- 书籍网格 -->
+        <div class="books-grid" id="booksGrid"></div>
         
-        <div class="divider">
-            <div class="divider-line"></div>
-            <span class="divider-icon">◆</span>
-            <div class="divider-line"></div>
-        </div>
-        <section class="category-section">
-            <div class="category-header">
-                <span class="category-icon">🔷</span>
-                <h2 class="category-title">Google / DeepMind</h2>
-                <span class="category-count">9 位</span>
-            </div>
-            <div class="accounts-grid">
-                
-                <div class="account-card featured">
-                    <div class="account-handle">@GoogleDeepMind</div>
-                    <div class="account-name">Google DeepMind</div>
-                    <div class="account-org">官方账号</div>
-                </div>
-                <div class="account-card featured">
-                    <div class="account-handle">@GoogleAI</div>
-                    <div class="account-name">Google AI</div>
-                    <div class="account-org">官方账号</div>
-                </div>
-                <div class="account-card featured">
-                    <div class="account-handle">@GeminiApp</div>
-                    <div class="account-name">Gemini</div>
-                    <div class="account-org">官方账号</div>
-                </div>
-                <div class="account-card ">
-                    <div class="account-handle">@sundarpichai</div>
-                    <div class="account-name">Sundar Pichai</div>
-                    <div class="account-org">Google CEO</div>
-                </div>
-                <div class="account-card ">
-                    <div class="account-handle">@koraykv</div>
-                    <div class="account-name">Koray Kavukcuoglu</div>
-                    <div class="account-org">首席AI架构师</div>
-                </div>
-                <div class="account-card ">
-                    <div class="account-handle">@goodside</div>
-                    <div class="account-name">Riley Goodside</div>
-                    <div class="account-org">首席提示工程师</div>
-                </div>
-                <div class="account-card ">
-                    <div class="account-handle">@OfficialLoganK</div>
-                    <div class="account-name">Logan Kilpatrick</div>
-                    <div class="account-org">AI Studio 产品负责人</div>
-                </div>
-                <div class="account-card ">
-                    <div class="account-handle">@joshwoodward</div>
-                    <div class="account-name">Josh Woodward</div>
-                    <div class="account-org">VP · Gemini</div>
-                </div>
-                <div class="account-card ">
-                    <div class="account-handle">@googleaidevs</div>
-                    <div class="account-name">Google AI Developers</div>
-                    <div class="account-org">开发者官方</div>
-                </div>
-            </div>
-        </section>
-        
-        <div class="divider">
-            <div class="divider-line"></div>
-            <span class="divider-icon">◆</span>
-            <div class="divider-line"></div>
-        </div>
-        <section class="category-section">
-            <div class="category-header">
-                <span class="category-icon">🟠</span>
-                <h2 class="category-title">Anthropic (Claude)</h2>
-                <span class="category-count">6 位</span>
-            </div>
-            <div class="accounts-grid">
-                
-                <div class="account-card featured">
-                    <div class="account-handle">@AnthropicAI</div>
-                    <div class="account-name">Anthropic</div>
-                    <div class="account-org">官方账号</div>
-                </div>
-                <div class="account-card featured">
-                    <div class="account-handle">@claudeai</div>
-                    <div class="account-name">Claude</div>
-                    <div class="account-org">官方账号</div>
-                </div>
-                <div class="account-card featured">
-                    <div class="account-handle">@alexalbert__</div>
-                    <div class="account-name">Alex Albert</div>
-                    <div class="account-org">Claude Relations</div>
-                </div>
-                <div class="account-card ">
-                    <div class="account-handle">@janleike</div>
-                    <div class="account-name">Jan Leike</div>
-                    <div class="account-org">对齐团队负责人</div>
-                </div>
-                <div class="account-card ">
-                    <div class="account-handle">@jaschasd</div>
-                    <div class="account-name">Jascha Sohl-Dickstein</div>
-                    <div class="account-org">Diffusion 发明者</div>
-                </div>
-                <div class="account-card ">
-                    <div class="account-handle">@ch402</div>
-                    <div class="account-name">Chris Olah</div>
-                    <div class="account-org">神经网络可解释性</div>
-                </div>
-            </div>
-        </section>
-        
-        <div class="divider">
-            <div class="divider-line"></div>
-            <span class="divider-icon">◆</span>
-            <div class="divider-line"></div>
-        </div>
-        <section class="category-section">
-            <div class="category-header">
-                <span class="category-icon">🇨🇳</span>
-                <h2 class="category-title">中国 AI 力量</h2>
-                <span class="category-count">10 位</span>
-            </div>
-            <div class="accounts-grid">
-                
-                <div class="account-card featured">
-                    <div class="account-handle">@deepseek_ai</div>
-                    <div class="account-name">DeepSeek</div>
-                    <div class="account-org">官方账号</div>
-                </div>
-                <div class="account-card featured">
-                    <div class="account-handle">@Alibaba_Qwen</div>
-                    <div class="account-name">Qwen 通义千问</div>
-                    <div class="account-org">阿里巴巴</div>
-                </div>
-                <div class="account-card featured">
-                    <div class="account-handle">@01AI_Yi</div>
-                    <div class="account-name">Yi 零一万物</div>
-                    <div class="account-org">李开复创办</div>
-                </div>
-                <div class="account-card ">
-                    <div class="account-handle">@TencentHunyuan</div>
-                    <div class="account-name">腾讯混元</div>
-                    <div class="account-org">腾讯</div>
-                </div>
-                <div class="account-card ">
-                    <div class="account-handle">@Baidu_Inc</div>
-                    <div class="account-name">百度</div>
-                    <div class="account-org">文心一言</div>
-                </div>
-                <div class="account-card ">
-                    <div class="account-handle">@Kling_ai</div>
-                    <div class="account-name">Kling AI 可灵</div>
-                    <div class="account-org">快手</div>
-                </div>
-                <div class="account-card ">
-                    <div class="account-handle">@Trae_ai</div>
-                    <div class="account-name">TRAE</div>
-                    <div class="account-org">字节跳动</div>
-                </div>
-                <div class="account-card ">
-                    <div class="account-handle">@ManusAI</div>
-                    <div class="account-name">Manus</div>
-                    <div class="account-org">AI Agent</div>
-                </div>
-                <div class="account-card ">
-                    <div class="account-handle">@JustinLin610</div>
-                    <div class="account-name">Junyang Lin</div>
-                    <div class="account-org">Qwen核心</div>
-                </div>
-                <div class="account-card ">
-                    <div class="account-handle">@victor207755822</div>
-                    <div class="account-name">Deli Chen</div>
-                    <div class="account-org">DeepSeek</div>
-                </div>
-            </div>
-        </section>
-        
-        <div class="divider">
-            <div class="divider-line"></div>
-            <span class="divider-icon">◆</span>
-            <div class="divider-line"></div>
-        </div>
-        <section class="category-section">
-            <div class="category-header">
-                <span class="category-icon">🛠️</span>
-                <h2 class="category-title">AI 产品 & 开发工具</h2>
-                <span class="category-count">12 位</span>
-            </div>
-            <div class="accounts-grid">
-                
-                <div class="account-card featured">
-                    <div class="account-handle">@cursor_ai</div>
-                    <div class="account-name">Cursor</div>
-                    <div class="account-org">AI编程IDE</div>
-                </div>
-                <div class="account-card featured">
-                    <div class="account-handle">@windsurf</div>
-                    <div class="account-name">Windsurf</div>
-                    <div class="account-org">AI编程IDE</div>
-                </div>
-                <div class="account-card featured">
-                    <div class="account-handle">@boltdotnew</div>
-                    <div class="account-name">bolt.new</div>
-                    <div class="account-org">AI应用构建</div>
-                </div>
-                <div class="account-card ">
-                    <div class="account-handle">@midjourney</div>
-                    <div class="account-name">Midjourney</div>
-                    <div class="account-org">AI绘画</div>
-                </div>
-                <div class="account-card ">
-                    <div class="account-handle">@StabilityAI</div>
-                    <div class="account-name">Stability AI</div>
-                    <div class="account-org">Stable Diffusion</div>
-                </div>
-                <div class="account-card ">
-                    <div class="account-handle">@LumaLabsAI</div>
-                    <div class="account-name">Luma AI</div>
-                    <div class="account-org">Dream Machine</div>
-                </div>
-                <div class="account-card ">
-                    <div class="account-handle">@perplexity_ai</div>
-                    <div class="account-name">Perplexity</div>
-                    <div class="account-org">AI搜索</div>
-                </div>
-                <div class="account-card ">
-                    <div class="account-handle">@NotionHQ</div>
-                    <div class="account-name">Notion</div>
-                    <div class="account-org">AI笔记</div>
-                </div>
-                <div class="account-card ">
-                    <div class="account-handle">@huggingface</div>
-                    <div class="account-name">Hugging Face</div>
-                    <div class="account-org">AI社区</div>
-                </div>
-                <div class="account-card ">
-                    <div class="account-handle">@Gradio</div>
-                    <div class="account-name">Gradio</div>
-                    <div class="account-org">ML演示</div>
-                </div>
-                <div class="account-card ">
-                    <div class="account-handle">@n8n_io</div>
-                    <div class="account-name">n8n</div>
-                    <div class="account-org">AI工作流</div>
-                </div>
-                <div class="account-card ">
-                    <div class="account-handle">@Magnific_AI</div>
-                    <div class="account-name">Magnific</div>
-                    <div class="account-org">AI放大器</div>
-                </div>
-            </div>
-        </section>
-        
-        <div class="divider">
-            <div class="divider-line"></div>
-            <span class="divider-icon">◆</span>
-            <div class="divider-line"></div>
-        </div>
-        <section class="category-section">
-            <div class="category-header">
-                <span class="category-icon">📢</span>
-                <h2 class="category-title">AI 内容创作者 & KOL</h2>
-                <span class="category-count">9 位</span>
-            </div>
-            <div class="accounts-grid">
-                
-                <div class="account-card featured">
-                    <div class="account-handle">@op7418</div>
-                    <div class="account-name">歸藏</div>
-                    <div class="account-org">AIGC周刊</div>
-                </div>
-                <div class="account-card featured">
-                    <div class="account-handle">@imxiaohu</div>
-                    <div class="account-name">小互</div>
-                    <div class="account-org">AI日报</div>
-                </div>
-                <div class="account-card featured">
-                    <div class="account-handle">@Lessnoise365</div>
-                    <div class="account-name">被减数</div>
-                    <div class="account-org">AIGC博士</div>
-                </div>
-                <div class="account-card ">
-                    <div class="account-handle">@LinusEkenstam</div>
-                    <div class="account-name">Linus Ekenstam</div>
-                    <div class="account-org">AI Evangelist</div>
-                </div>
-                <div class="account-card ">
-                    <div class="account-handle">@nickfloats</div>
-                    <div class="account-name">Nick St. Pierre</div>
-                    <div class="account-org">Midjourney教程</div>
-                </div>
-                <div class="account-card ">
-                    <div class="account-handle">@minchoi</div>
-                    <div class="account-name">Min Choi</div>
-                    <div class="account-org">AI Educator</div>
-                </div>
-                <div class="account-card ">
-                    <div class="account-handle">@HeyAbhishek</div>
-                    <div class="account-name">Abhishek</div>
-                    <div class="account-org">AI Tools</div>
-                </div>
-                <div class="account-card ">
-                    <div class="account-handle">@_akhaliq</div>
-                    <div class="account-name">AK</div>
-                    <div class="account-org">AI论文分享</div>
-                </div>
-                <div class="account-card ">
-                    <div class="account-handle">@DeepLearningAI</div>
-                    <div class="account-name">DeepLearning.AI</div>
-                    <div class="account-org">吴恩达AI教育</div>
-                </div>
-            </div>
-        </section>
-        
-        <div class="divider">
-            <div class="divider-line"></div>
-            <span class="divider-icon">◆</span>
-            <div class="divider-line"></div>
-        </div>
-        <section class="category-section">
-            <div class="category-header">
-                <span class="category-icon">💼</span>
-                <h2 class="category-title">科技巨头 CEO</h2>
-                <span class="category-count">5 位</span>
-            </div>
-            <div class="accounts-grid">
-                
-                <div class="account-card featured">
-                    <div class="account-handle">@satyanadella</div>
-                    <div class="account-name">Satya Nadella</div>
-                    <div class="account-org">Microsoft CEO</div>
-                </div>
-                <div class="account-card featured">
-                    <div class="account-handle">@LisaSu</div>
-                    <div class="account-name">Lisa Su</div>
-                    <div class="account-org">AMD CEO</div>
-                </div>
-                <div class="account-card featured">
-                    <div class="account-handle">@elonmusk</div>
-                    <div class="account-name">Elon Musk</div>
-                    <div class="account-org">xAI · Tesla</div>
-                </div>
-                <div class="account-card ">
-                    <div class="account-handle">@BillGates</div>
-                    <div class="account-name">Bill Gates</div>
-                    <div class="account-org">Gates Foundation</div>
-                </div>
-                <div class="account-card ">
-                    <div class="account-handle">@JeffBezos</div>
-                    <div class="account-name">Jeff Bezos</div>
-                    <div class="account-org">Amazon · Blue Origin</div>
-                </div>
-            </div>
-        </section>
-        
-        
+        <!-- Footer -->
         <footer class="footer">
-            <div class="footer-logo">✦ TANGZHU AI COLLECTION ✦</div>
-            <p class="footer-text">精选全球顶级AI从业者、研究者、创作者</p>
-            <div class="footer-tip">
-                💡 使用方法：复制账号（如 @sama）到 X 搜索并关注
-            </div>
-            <p style="margin-top:20px;color:#666;font-size:0.8rem;">更新日期：2025年12月</p>
+            <div class="footer-logo">✦ TANGZHU AI BOOK COLLECTION ✦</div>
+            <p class="footer-text">读书是最低成本的认知升级</p>
         </footer>
     </div>
+    
+    <!-- Modal -->
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal">
+            <button class="modal-close" id="modalClose">&times;</button>
+            <div class="modal-header">
+                <img class="modal-cover" id="modalCover" src="" alt="">
+                <div class="modal-title-section">
+                    <h2 class="modal-title-cn" id="modalTitleCn"></h2>
+                    <p class="modal-title-en" id="modalTitleEn"></p>
+                    <p class="modal-author" id="modalAuthor"></p>
+                    <p class="modal-publisher" id="modalPublisher"></p>
+                    <p class="modal-isbn" id="modalIsbn"></p>
+                    <p class="modal-isbn-hint">ISBN 用于精确搜索，避免同名买错</p>
+                </div>
+            </div>
+            <div class="modal-body">
+                <div class="modal-section">
+                    <div class="modal-section-title">塘主推荐理由</div>
+                    <div class="modal-why" id="modalWhy"></div>
+                </div>
+                <div class="modal-section">
+                    <div class="modal-section-title">购买检索口令</div>
+                    <div class="modal-search-cmd" id="modalSearchCmd"></div>
+                    <button class="modal-copy-btn" id="modalCopyBtn">📋 复制检索口令</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    // ========== 书籍数据 ==========
+    const BOOKS = [
+        {
+            id: "shannon",
+            title_cn: "香农传：从0到1开创信息时代",
+            title_en: "A Mind at Play",
+            author: "[美] 吉米·索尼 / [美] 罗伯·古德曼",
+            translator: "杨晔",
+            publisher: "中信出版社",
+            year: "2019",
+            isbn13: "9787508694801",
+            cover: "covers/shannon.jpg",
+            tags: ["Biography", "AI History"],
+            why: "信息论之父克劳德·香农的传记\n\n他在 1948 年发表的《通信的数学理论》，奠定了整个信息时代的基础\n\n我们今天讲的「数据」、「信息」、「编码」这些概念，都源自他的工作\n\n想从源头理解信息和数据，必读这本"
+        },
+        {
+            id: "dl-revolution",
+            title_cn: "深度学习革命：从历史到未来",
+            title_en: "Genius Makers",
+            author: "[美] 凯德·梅茨",
+            translator: "桂曙光",
+            publisher: "中信出版集团",
+            year: "2023",
+            isbn13: "9787521747553",
+            cover: "covers/deep-learning-revolution.jpg",
+            tags: ["AI History"],
+            why: "作者凯德·梅茨，《纽约时报》科技记者\n\n这本书讲的是深度学习从边缘学科，到改变世界的这段历史\n\nHinton、LeCun、Bengio 三巨头的故事，看完你会理解为什么深度学习能成功"
+        },
+        {
+            id: "singularity-nearer",
+            title_cn: "奇点更近",
+            title_en: "The Singularity Is Nearer: When We Merge With AI",
+            author: "[美] 雷·库兹韦尔",
+            translator: "芦义",
+            publisher: "中国财政经济出版社",
+            year: "2024",
+            isbn13: "9787522333977",
+            cover: "covers/singularity-is-nearer.jpg",
+            tags: ["Future"],
+            why: "雷·库兹韦尔的最新作品，是《奇点临近》的续作\n\n讲的是技术发展的指数曲线，以及 AI 最终会走向哪里\n\n读这本书，你会理解什么叫指数增长，为什么 AI 的进化会越来越快"
+        },
+        {
+            id: "ai-brief-history",
+            title_cn: "人工智能简史（第2版）",
+            title_en: "",
+            author: "尼克（Nick）",
+            translator: "",
+            publisher: "人民邮电出版社",
+            year: "2021",
+            isbn13: "9787115491718",
+            cover: "covers/ai-brief-history.jpg",
+            tags: ["AI History"],
+            why: "全面梳理 AI 从图灵时代到今天的发展脉络\n\n想要了解 AI 的完整历史，这本书是最好的入门"
+        },
+        {
+            id: "nvidia-way",
+            title_cn: "英伟达之道：黄仁勋和他的科技帝国",
+            title_en: "THE NVIDIA WAY: Jensen Huang and the Making of a Tech Giant",
+            author: "[美] 金泰（Tae Kim）",
+            translator: "董世敏 / 周康林",
+            publisher: "中信出版集团",
+            year: "2025",
+            isbn13: "9787521770162",
+            cover: "covers/nvidia-way.jpg",
+            tags: ["Biography", "Startup&Product"],
+            why: "讲的是英伟达和黄仁勋的故事\n\n芯片是 AI 的基础设施，没有算力就没有大模型\n\n想理解 AI 算力的底层支撑，这本书必读"
+        },
+        {
+            id: "the-world-i-see",
+            title_cn: "我看见的世界：李飞飞自传",
+            title_en: "The Worlds I See: Curiosity, Exploration, and Discovery at the Dawn of AI",
+            author: "[美] 李飞飞",
+            translator: "赵灿",
+            publisher: "中信出版集团",
+            year: "2024",
+            isbn13: "9787521762181",
+            cover: "covers/the-worlds-i-see.jpg",
+            tags: ["Biography", "AI History"],
+            why: "李飞飞的自传\n\n她是 ImageNet 的创建者，斯坦福 AI 实验室主任，World Labs 创始人\n\n这本书讲述了计算机视觉的发展历程，以及她作为华人女性科学家的奋斗故事"
+        },
+        {
+            id: "ai-civilization",
+            title_cn: "AI文明史·前史",
+            title_en: "",
+            author: "张笑宇",
+            translator: "",
+            publisher: "中信出版社",
+            year: "2025",
+            isbn13: "9787521777680",
+            cover: "covers/ai-civilization.jpg",
+            tags: ["AI History"],
+            why: "把 AI 放在人类文明的大背景下来理解\n\n不只是技术史，更是思想史\n\n读完会让你对 AI 有更宏观的认知"
+        },
+        {
+            id: "altman-bio",
+            title_cn: "奥尔特曼传",
+            title_en: "",
+            author: "周恒星",
+            translator: "",
+            publisher: "浙江科学技术出版社",
+            year: "2024",
+            isbn13: "9787573915375",
+            cover: "covers/altman.jpg",
+            tags: ["Biography", "Startup&Product"],
+            why: "中国科技记者周恒星写的，他采访接触 Sam Altman 长达 10 年\n\nOpenAI 掌门人的故事，第一手的信息源\n\n想了解 OpenAI 背后的故事，这本书是最权威的"
+        },
+        {
+            id: "crossing-chasm",
+            title_cn: "跨越鸿沟：颠覆性产品营销指南",
+            title_en: "Crossing the Chasm, 3rd Edition",
+            author: "[美] 杰弗里·摩尔",
+            translator: "祝惠娇",
+            publisher: "机械工业出版社",
+            year: "2022",
+            isbn13: "9787111710844",
+            cover: "covers/crossing-the-chasm.jpg",
+            tags: ["Startup&Product"],
+            why: "杰弗里·摩尔的经典之作，讲科技产品如何从早期用户走向大众市场\n\nAI 工具现在正处于跨越鸿沟的关键期，读这本书能帮你理解 AI 产品的发展规律"
+        },
+        {
+            id: "hackers-painters",
+            title_cn: "黑客与画家",
+            title_en: "Hackers and Painters: Big Ideas from the Computer Age",
+            author: "[美] 保罗·格雷厄姆",
+            translator: "阮一峰",
+            publisher: "人民邮电出版社",
+            year: "2022",
+            isbn13: "9787115590862",
+            cover: "covers/hackers-and-painters.jpg",
+            tags: ["Startup&Product"],
+            why: "保罗·格雷厄姆的文集，Y Combinator 创始人\n\n讲硅谷创业精神和技术思维\n\n虽然不是专门讲 AI 的，但里面的思维方式对理解科技创新非常有帮助"
+        }
+    ];
+
+    // ========== 封面加载失败兜底 ==========
+    function handleCoverError(img) {
+        // 创建精美的占位符：深蓝背景 + 金色边框 + "封面缺失"文字
+        const placeholder = `data:image/svg+xml,${encodeURIComponent(`
+            <svg xmlns="http://www.w3.org/2000/svg" width="140" height="200" viewBox="0 0 140 200">
+                <defs>
+                    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" style="stop-color:#1a1a2e"/>
+                        <stop offset="100%" style="stop-color:#16213e"/>
+                    </linearGradient>
+                    <linearGradient id="gold" x1="0%" y1="0%" x2="100%" y2="0%">
+                        <stop offset="0%" style="stop-color:#996515"/>
+                        <stop offset="50%" style="stop-color:#D4AF37"/>
+                        <stop offset="100%" style="stop-color:#996515"/>
+                    </linearGradient>
+                </defs>
+                <rect fill="url(#bg)" width="140" height="200" rx="4"/>
+                <rect x="2" y="2" width="136" height="196" rx="3" fill="none" stroke="url(#gold)" stroke-width="1" opacity="0.5"/>
+                <text x="70" y="85" fill="#D4AF37" text-anchor="middle" font-family="serif" font-size="28">📚</text>
+                <text x="70" y="115" fill="#a0a0a0" text-anchor="middle" font-family="sans-serif" font-size="11">封面缺失</text>
+                <text x="70" y="132" fill="#666" text-anchor="middle" font-family="sans-serif" font-size="9">Cover Missing</text>
+            </svg>
+        `)}`;
+        img.src = placeholder;
+        img.onerror = null; // 防止循环
+    }
+
+    // ========== 渲染逻辑 ==========
+    let currentTag = 'all';
+    let searchQuery = '';
+
+    function filterBooks() {
+        return BOOKS.filter(book => {
+            const matchTag = currentTag === 'all' || book.tags.includes(currentTag);
+            const matchSearch = searchQuery === '' || 
+                book.title_cn.toLowerCase().includes(searchQuery) ||
+                book.title_en.toLowerCase().includes(searchQuery) ||
+                book.author.toLowerCase().includes(searchQuery) ||
+                book.tags.some(t => t.toLowerCase().includes(searchQuery));
+            return matchTag && matchSearch;
+        });
+    }
+
+    function renderBooks() {
+        const grid = document.getElementById('booksGrid');
+        const filtered = filterBooks();
+        
+        if (filtered.length === 0) {
+            grid.innerHTML = `
+                <div class="empty-state">
+                    <div class="empty-state-icon">📖</div>
+                    <p>没有找到匹配的书籍</p>
+                </div>
+            `;
+            return;
+        }
+        
+        grid.innerHTML = filtered.map(book => `
+            <div class="book-card" data-id="${book.id}">
+                <div class="book-cover-wrapper">
+                    <img class="book-cover" src="${book.cover}" alt="${book.title_cn}" onerror="handleCoverError(this)">
+                </div>
+                <div class="book-info">
+                    <h3 class="book-title-cn">${book.title_cn}</h3>
+                    ${book.title_en ? `<p class="book-title-en">${book.title_en}</p>` : '<p class="book-title-en">&nbsp;</p>'}
+                    <p class="book-author">${book.author}</p>
+                    <p class="book-meta">${[book.publisher, book.year].filter(Boolean).join(' · ') || '—'}</p>
+                    <div class="book-tags">
+                        ${book.tags.map(tag => `<span class="book-tag">${tag}</span>`).join('')}
+                    </div>
+                </div>
+            </div>
+        `).join('');
+        
+        // 绑定卡片点击
+        document.querySelectorAll('.book-card').forEach(card => {
+            card.addEventListener('click', () => openModal(card.dataset.id));
+        });
+    }
+
+    // Modal
+    function openModal(bookId) {
+        const book = BOOKS.find(b => b.id === bookId);
+        if (!book) return;
+        
+        const modalCover = document.getElementById('modalCover');
+        modalCover.onerror = function() { handleCoverError(this); };
+        modalCover.src = book.cover;
+        document.getElementById('modalTitleCn').textContent = book.title_cn;
+        document.getElementById('modalTitleEn').textContent = book.title_en || '';
+        document.getElementById('modalAuthor').textContent = '作者：' + book.author;
+        document.getElementById('modalPublisher').textContent = [book.publisher, book.year].filter(Boolean).join(' · ') || '';
+        document.getElementById('modalIsbn').textContent = book.isbn13 ? 'ISBN: ' + book.isbn13 : '';
+        document.getElementById('modalWhy').textContent = book.why;
+        
+        const searchCmd = [book.title_cn, book.author, book.isbn13].filter(Boolean).join(' ');
+        document.getElementById('modalSearchCmd').textContent = searchCmd;
+        
+        document.getElementById('modalOverlay').classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+        document.getElementById('modalOverlay').classList.remove('active');
+        document.body.style.overflow = '';
+    }
+
+    // 事件绑定
+    document.getElementById('modalClose').addEventListener('click', closeModal);
+    document.getElementById('modalOverlay').addEventListener('click', (e) => {
+        if (e.target === document.getElementById('modalOverlay')) closeModal();
+    });
+
+    document.getElementById('modalCopyBtn').addEventListener('click', function() {
+        const cmd = document.getElementById('modalSearchCmd').textContent;
+        navigator.clipboard.writeText(cmd).then(() => {
+            this.textContent = '✅ 已复制';
+            this.classList.add('copied');
+            setTimeout(() => {
+                this.textContent = '📋 复制检索口令';
+                this.classList.remove('copied');
+            }, 1500);
+        });
+    });
+
+    // 搜索
+    document.getElementById('searchInput').addEventListener('input', (e) => {
+        searchQuery = e.target.value.toLowerCase();
+        renderBooks();
+    });
+
+    // 筛选
+    document.querySelectorAll('.chip').forEach(chip => {
+        chip.addEventListener('click', () => {
+            document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+            chip.classList.add('active');
+            currentTag = chip.dataset.tag;
+            renderBooks();
+        });
+    });
+
+    // ESC 关闭
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') closeModal();
+    });
+
+    // 初始化
+    renderBooks();
+    
+    // 更新 ISBN 统计
+    const isbnCount = BOOKS.filter(b => b.isbn13).length;
+    document.getElementById('isbn-count').textContent = isbnCount;
+    </script>
 </body>
 </html>
